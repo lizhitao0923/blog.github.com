@@ -1,0 +1,1166 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="elasticsearch 2.1.1,压力测试," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x6D4B;&amp;#x8BD5;&amp;#x73AF;&amp;#x5883;&amp;#x786C;&amp;#x4EF6;&amp;#x914D;&amp;#x7F6E;
+&amp;#x8F6F;&amp;#x4EF6;
+elasticsearch-2.1.1 &amp;#x5185;&amp;#x5B58;&amp;#x5206;&amp;#x914D;&amp;#x4E3A;4G 
+jmeter-2.10
+zabbix-3.0
+
+Index&amp;#x6D4B;&amp;#x8BD5;&amp;#x4E00;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch 2.1.1压力测试">
+<meta property="og:url" content="http://yoursite.com/2016/03/03/elasticsearch2-load/index.html">
+<meta property="og:site_name" content="Hale's blog">
+<meta property="og:description" content="&amp;#x6D4B;&amp;#x8BD5;&amp;#x73AF;&amp;#x5883;&amp;#x786C;&amp;#x4EF6;&amp;#x914D;&amp;#x7F6E;
+&amp;#x8F6F;&amp;#x4EF6;
+elasticsearch-2.1.1 &amp;#x5185;&amp;#x5B58;&amp;#x5206;&amp;#x914D;&amp;#x4E3A;4G 
+jmeter-2.10
+zabbix-3.0
+
+Index&amp;#x6D4B;&amp;#x8BD5;&amp;#x4E00;&amp;">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/hosts.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/index1-1.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/index1-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/index2-1.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/index2-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/index2-3.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/index2-4.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/search1-1.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/search1-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/search1-3.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/search1-4.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/search2-1.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/search2-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/search2-3.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/search2-4.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/search2-5.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/search2-6.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/search3-1.jpg">
+<meta property="og:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/search3-2.jpg">
+<meta property="og:updated_time" content="2016-09-14T09:50:22.570Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elasticsearch 2.1.1压力测试">
+<meta name="twitter:description" content="&amp;#x6D4B;&amp;#x8BD5;&amp;#x73AF;&amp;#x5883;&amp;#x786C;&amp;#x4EF6;&amp;#x914D;&amp;#x7F6E;
+&amp;#x8F6F;&amp;#x4EF6;
+elasticsearch-2.1.1 &amp;#x5185;&amp;#x5B58;&amp;#x5206;&amp;#x914D;&amp;#x4E3A;4G 
+jmeter-2.10
+zabbix-3.0
+
+Index&amp;#x6D4B;&amp;#x8BD5;&amp;#x4E00;&amp;">
+<meta name="twitter:image" content="http://yoursite.com/2016/03/03/elasticsearch2-load/hosts.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/03/03/elasticsearch2-load/"/>
+
+  <title> Elasticsearch 2.1.1压力测试 | Hale's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hale's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Just do it</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Elasticsearch 2.1.1压力测试
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-03T12:42:56+08:00" content="2016-03-03">
+              2016-03-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/03/elasticsearch2-load/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/03/elasticsearch2-load/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="&#x6D4B;&#x8BD5;&#x73AF;&#x5883;"><a href="#&#x6D4B;&#x8BD5;&#x73AF;&#x5883;" class="headerlink" title="&#x6D4B;&#x8BD5;&#x73AF;&#x5883;"></a>&#x6D4B;&#x8BD5;&#x73AF;&#x5883;</h1><h2 id="&#x786C;&#x4EF6;&#x914D;&#x7F6E;"><a href="#&#x786C;&#x4EF6;&#x914D;&#x7F6E;" class="headerlink" title="&#x786C;&#x4EF6;&#x914D;&#x7F6E;"></a>&#x786C;&#x4EF6;&#x914D;&#x7F6E;</h2><p><img src="/2016/03/03/elasticsearch2-load/hosts.jpg" alt=""></p>
+<h2 id="&#x8F6F;&#x4EF6;"><a href="#&#x8F6F;&#x4EF6;" class="headerlink" title="&#x8F6F;&#x4EF6;"></a>&#x8F6F;&#x4EF6;</h2><ul>
+<li>elasticsearch-2.1.1 &#x5185;&#x5B58;&#x5206;&#x914D;&#x4E3A;4G </li>
+<li>jmeter-2.10</li>
+<li>zabbix-3.0</li>
+</ul>
+<h1 id="Index&#x6D4B;&#x8BD5;&#x4E00;"><a href="#Index&#x6D4B;&#x8BD5;&#x4E00;" class="headerlink" title="Index&#x6D4B;&#x8BD5;&#x4E00;"></a>Index&#x6D4B;&#x8BD5;&#x4E00;</h1><h2 id="&#x6D4B;&#x8BD5;&#x76EE;&#x7684;"><a href="#&#x6D4B;&#x8BD5;&#x76EE;&#x7684;" class="headerlink" title="&#x6D4B;&#x8BD5;&#x76EE;&#x7684;"></a>&#x6D4B;&#x8BD5;&#x76EE;&#x7684;</h2><ol>
+<li>&#x7D22;&#x5F15;&#x7684;&#x5EFA;&#x7ACB;&#x7CFB;&#x7EDF;&#x7684;&#x74F6;&#x9888;&#x5728;&#x54EA;&#x4E2A;&#x5730;&#x65B9;&#xFF1F;</li>
+<li>&#x589E;&#x52A0;&#x8282;&#x70B9;&#xFF0C;&#x7D22;&#x5F15;&#x901F;&#x5EA6;&#x662F;&#x5426;&#x7B26;&#x5408;&#x7EBF;&#x6027;&#x589E;&#x957F;&#xFF1F;</li>
+</ol>
+<p>&#x7D22;&#x5F15;&#x6570;&#x636E;&#x91CF;&#xFF1A;1&#x4EBF;<br>Elasticsearch&#x7D22;&#x5F15;&#x5E93;&#x7ED3;&#x6784;&#xFF1A;</p>
+<pre><code>{
+  &quot;settings&quot;:{
+        &quot;number_of_shards&quot;:5,
+        &quot;number_of_replicas&quot;:0
+  },
+  &quot;mappings&quot;: {
+    &quot;dns&quot; : {
+      &quot;_all&quot;: { 
+        &quot;analyzer&quot;: &quot;ik_smart&quot;,
+        &quot;search_analyzer&quot;: &quot;ik_smart&quot;
+      },
+      &quot;properties&quot; : {
+        &quot;dest_ip&quot;:{
+          &quot;type&quot;: &quot;ip&quot;,
+          &quot;store&quot;: &quot;no&quot;,
+          &quot;include_in_all&quot;: &quot;true&quot;
+        },
+        &quot;date_time&quot;:{
+          &quot;type&quot;:&quot;date&quot;,
+          &quot;format&quot;: &quot;yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis&quot;
+        },
+        &quot;dns&quot;:{
+          &quot;type&quot;:&quot;string&quot;
+        },
+        &quot;source_ip&quot;:{
+          &quot;type&quot;:&quot;ip&quot;
+        },
+        &quot;dns_server&quot;:{
+          &quot;type&quot;:&quot;ip&quot;
+        },
+        &quot;country&quot;:{
+          &quot;type&quot;:&quot;string&quot;
+        },
+        &quot;ttl&quot;:{
+          &quot;type&quot;:&quot;long&quot;
+        },
+        &quot;phone_num&quot;:{
+          &quot;type&quot;:&quot;string&quot;
+        }
+      }
+    }
+  }
+}
+</code></pre><h2 id="5-shards-0-replicats-1-nodes"><a href="#5-shards-0-replicats-1-nodes" class="headerlink" title="5 shards 0 replicats 1 nodes"></a>5 shards 0 replicats 1 nodes</h2><p><strong>ES&#x8282;&#x70B9;&#x6570;&#x91CF;&#xFF1A;1&#x53F0;</strong></p>
+<table>
+<thead>
+<tr>
+<th>&#x65F6;&#x95F4;</th>
+<th>&#x901F;&#x7387;(doc/sec)</th>
+<th>cpu load(&#x6BCF;&#x6838;&#x5FC3;)</th>
+<th>JVM Heap(%)</th>
+<th>Disk IOPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>16:56:02</td>
+<td>33363.3992</td>
+<td>3.8062</td>
+<td>80</td>
+<td>68</td>
+</tr>
+<tr>
+<td>16:49:02</td>
+<td>32712.4562</td>
+<td>4.4575</td>
+<td>48</td>
+<td>80</td>
+</tr>
+<tr>
+<td>16:48:02</td>
+<td>36250.6307</td>
+<td>4.0625</td>
+<td>81</td>
+<td>60</td>
+</tr>
+<tr>
+<td>16:47:03</td>
+<td>31398.1537</td>
+<td>3.4375</td>
+<td>41</td>
+<td>51</td>
+</tr>
+<tr>
+<td>16:46:02</td>
+<td>26266.1641</td>
+<td>3.5787</td>
+<td>80</td>
+<td>43</td>
+</tr>
+<tr>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+</tr>
+<tr>
+<td>&#x5E73;&#x5747;&#xFF1A;</td>
+<td>28510.00</td>
+<td>2.72</td>
+<td>36.73</td>
+<td>66.13</td>
+</tr>
+</tbody>
+</table>
+<p><strong>&#x5EFA;&#x7ACB;&#x7D22;&#x5F15;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#x5360;&#x7528;&#x622A;&#x56FE;&#xFF1A;</strong></p>
+<p><img src="/2016/03/03/elasticsearch2-load/index1-1.jpg" alt=""></p>
+<h2 id="5-shards-0-replicats-2-nodes"><a href="#5-shards-0-replicats-2-nodes" class="headerlink" title="5 shards 0 replicats 2 nodes"></a>5 shards 0 replicats 2 nodes</h2><p><strong>ES&#x8282;&#x70B9;&#x6570;&#x91CF;&#xFF1A;2&#x53F0;</strong></p>
+<p>&#x3010;&#x6CE8;&#xFF1A;&#x8FD9;&#x91CC;&#x4EC5;&#x4EC5;&#x9009;&#x62E9;&#x4E00;&#x53F0;&#x8282;&#x70B9;&#x7684;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x663E;&#x793A;&#xFF0C;&#x8282;&#x70B9;&#x662F;&#x914D;&#x7F6E;&#x76F8;&#x540C;&#xFF0C;&#x6570;&#x636E;&#x5206;&#x5E03;&#x65F6;&#x4E5F;&#x662F;&#x5747;&#x5300;&#x7684;&#x3011;</p>
+<table>
+<thead>
+<tr>
+<th>&#x65F6;&#x95F4;</th>
+<th>&#x603B;&#x901F;&#x7387;(doc/sec)</th>
+<th>cpu load(&#x6BCF;&#x6838;&#x5FC3;)</th>
+<th>JVM Heap(%)</th>
+<th>Disk IOPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13:36:01</td>
+<td>51385.6125</td>
+<td>0.4688</td>
+<td>14</td>
+<td>42</td>
+</tr>
+<tr>
+<td>13:35:31</td>
+<td>52379.1617</td>
+<td>0.465</td>
+<td>15</td>
+<td>45</td>
+</tr>
+<tr>
+<td>13:34:31</td>
+<td>53261.5475</td>
+<td>0.69</td>
+<td>18</td>
+<td>41</td>
+</tr>
+<tr>
+<td>13:33:31</td>
+<td>52496.0189</td>
+<td>0.7238</td>
+<td>17</td>
+<td>50</td>
+</tr>
+<tr>
+<td>13:32:31</td>
+<td>52634.6769</td>
+<td>0.5625</td>
+<td>14</td>
+<td>52</td>
+</tr>
+<tr>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+</tr>
+<tr>
+<td>&#x5E73;&#x5747;&#xFF1A;</td>
+<td>53230.00</td>
+<td>0.8138</td>
+<td>14</td>
+<td>51.4</td>
+</tr>
+</tbody>
+</table>
+<p><strong>&#x5EFA;&#x7ACB;&#x7D22;&#x5F15;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#x5360;&#x7528;&#x622A;&#x56FE;&#xFF1A;</strong><br><img src="/2016/03/03/elasticsearch2-load/index1-2.jpg" alt=""></p>
+<h2 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;"><a href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;" class="headerlink" title="&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;"></a>&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;</h2><ol>
+<li>&#x6279;&#x91CF;&#x5EFA;&#x7ACB;&#x7D22;&#x5F15;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5355;&#x53F0;&#x673A;&#x5668;&#x65E0;&#x526F;&#x672C;&#x7684;&#x60C5;&#x51B5;&#x4E0B;CPU&#x662F;&#x6027;&#x80FD;&#x7684;&#x74F6;&#x9888;&#x3002;(&#x901A;&#x8FC7;&#x76D1;&#x63A7;&#x770B;&#x51FA;CPU&#x9AD8;&#x8D1F;&#x8F7D;&#x4E3B;&#x8981;&#x8868;&#x73B0;&#x5728;&#x5927;&#x91CF;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#xFF0C;&#x5E76;&#x4E0D;&#x8868;&#x73B0;&#x5728;&#x78C1;&#x76D8;io&#x7B49;&#x5F85;&#x3002;&#x8D1F;&#x8F7D;&#x9AD8;&#x5BFC;&#x81F4;ES&#x65E0;&#x6CD5;&#x54CD;&#x5E94;)</li>
+<li>&#x901A;&#x8FC7;&#x6D4B;&#x8BD5;&#x5BF9;&#x6BD4;&#x5F97;&#x51FA;&#xFF0C;&#x6BCF;&#x589E;&#x52A0;&#x4E00;&#x53F0;&#x673A;&#x5668;&#xFF0C;&#x7D22;&#x5F15;&#x7684;&#x6027;&#x80FD;&#x57FA;&#x672C;&#x7B26;&#x5408;&#x7EBF;&#x6027;&#x9012;&#x589E;(&#x65E0;&#x526F;&#x672C;&#x7684;&#x60C5;&#x51B5;&#x4E0B;)</li>
+</ol>
+<h1 id="Index&#x6D4B;&#x8BD5;&#x4E8C;"><a href="#Index&#x6D4B;&#x8BD5;&#x4E8C;" class="headerlink" title="Index&#x6D4B;&#x8BD5;&#x4E8C;"></a>Index&#x6D4B;&#x8BD5;&#x4E8C;</h1><h2 id="&#x6D4B;&#x8BD5;&#x76EE;&#x7684;-1"><a href="#&#x6D4B;&#x8BD5;&#x76EE;&#x7684;-1" class="headerlink" title="&#x6D4B;&#x8BD5;&#x76EE;&#x7684;"></a>&#x6D4B;&#x8BD5;&#x76EE;&#x7684;</h2><ol>
+<li>&#x6D4B;&#x8BD5;&#x5728;&#x76F8;&#x540C;&#x7684;&#x6570;&#x636E;&#x91CF;&#x4E0B;&#xFF0C;[&#x591A;Index&#x5355;type]&#x4E0E;[&#x5355;Index&#x591A;type]&#x4E0B;&#xFF0C;&#x6570;&#x636E;&#x7684;&#x7D22;&#x5F15;&#x901F;&#x5EA6;&#xFF1F;</li>
+</ol>
+<h2 id="5-shards-1-replicats-2-nodes-index-day"><a href="#5-shards-1-replicats-2-nodes-index-day" class="headerlink" title="5 shards 1 replicats 2 nodes (index/day)"></a>5 shards 1 replicats 2 nodes (index/day)</h2><p><strong>&#x7D22;&#x5F15;&#x6570;&#x636E;&#x91CF;&#x603B;&#x5171;&#x7EA6;5&#x4EBF;&#x6761;&#xFF0C;&#x5206;5&#x4E2A;Index&#x5B58;&#x50A8;</strong><br>&#x3010;&#x6CE8;&#xFF1A;&#x8FD9;&#x91CC;&#x4EC5;&#x4EC5;&#x9009;&#x62E9;&#x4E00;&#x53F0;&#x8282;&#x70B9;&#x7684;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x663E;&#x793A;&#xFF0C;&#x8282;&#x70B9;&#x662F;&#x914D;&#x7F6E;&#x76F8;&#x540C;&#xFF0C;&#x6570;&#x636E;&#x5206;&#x5E03;&#x65F6;&#x4E5F;&#x662F;&#x5747;&#x5300;&#x7684;&#x3011;<br><img src="/2016/03/03/elasticsearch2-load/index2-1.jpg" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>&#x65F6;&#x95F4;</th>
+<th>&#x603B;&#x901F;&#x7387;(doc/sec)</th>
+<th>cpu load(&#x6BCF;&#x6838;&#x5FC3;)</th>
+<th>JVM Heap(%)</th>
+<th>Disk IOPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>16:43:01</td>
+<td>81525.0938</td>
+<td>2.395</td>
+<td>58</td>
+<td>82</td>
+</tr>
+<tr>
+<td>16:42:01</td>
+<td>81331.8087</td>
+<td>2.2912</td>
+<td>54</td>
+<td>84</td>
+</tr>
+<tr>
+<td>16:41:01</td>
+<td>79423.9755</td>
+<td>2.1837</td>
+<td>43</td>
+<td>92</td>
+</tr>
+<tr>
+<td>16:40:01</td>
+<td>81646.5939</td>
+<td>2.5075</td>
+<td>47</td>
+<td>84</td>
+</tr>
+<tr>
+<td>16:39:01</td>
+<td>76849.2511</td>
+<td>2.71</td>
+<td>30</td>
+<td>80</td>
+</tr>
+<tr>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+</tr>
+<tr>
+<td>&#x5E73;&#x5747;&#xFF1A;</td>
+<td>77260.00</td>
+<td>2.35</td>
+<td>45.13</td>
+<td>81.75</td>
+</tr>
+</tbody>
+</table>
+<p><strong>&#x521B;&#x5EFA;&#x7D22;&#x5F15;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#x622A;&#x56FE;&#xFF1A;</strong><br><img src="/2016/03/03/elasticsearch2-load/index2-2.jpg" alt=""></p>
+<h2 id="5-shards-1-replicats-2-nodes-one-index"><a href="#5-shards-1-replicats-2-nodes-one-index" class="headerlink" title="5 shards 1 replicats 2 nodes (one index)"></a>5 shards 1 replicats 2 nodes (one index)</h2><p><strong>&#x7D22;&#x5F15;&#x6570;&#x636E;&#x91CF;&#x603B;&#x5171;&#x7EA6;5&#x4EBF;&#x6761;&#xFF0C;&#x5206;1&#x4E2A;Index 5&#x4E2A;type&#x5B58;&#x50A8;</strong><br>&#x3010;&#x6CE8;&#xFF1A;&#x8FD9;&#x91CC;&#x4EC5;&#x4EC5;&#x9009;&#x62E9;&#x4E00;&#x53F0;&#x8282;&#x70B9;&#x7684;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x663E;&#x793A;&#xFF0C;&#x8282;&#x70B9;&#x662F;&#x914D;&#x7F6E;&#x76F8;&#x540C;&#xFF0C;&#x6570;&#x636E;&#x5206;&#x5E03;&#x65F6;&#x4E5F;&#x662F;&#x5747;&#x5300;&#x7684;&#x3011;<br><img src="/2016/03/03/elasticsearch2-load/index2-3.jpg" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>&#x65F6;&#x95F4;</th>
+<th>&#x603B;&#x901F;&#x7387;(doc/sec)</th>
+<th>cpu load(&#x6BCF;&#x6838;&#x5FC3;)</th>
+<th>JVM Heap(%)</th>
+<th>Disk IOPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>14:19:02</td>
+<td>56602.9854</td>
+<td>5.79</td>
+<td>77</td>
+<td>68</td>
+</tr>
+<tr>
+<td>14:18:02</td>
+<td>53888.5621</td>
+<td>4.52</td>
+<td>71</td>
+<td>79</td>
+</tr>
+<tr>
+<td>14:17:02</td>
+<td>54252.9837</td>
+<td>4.905</td>
+<td>84</td>
+<td>53</td>
+</tr>
+<tr>
+<td>14:16:02</td>
+<td>56878.0946</td>
+<td>4.9162</td>
+<td>55</td>
+<td>59</td>
+</tr>
+<tr>
+<td>14:15:02</td>
+<td>54367.3446</td>
+<td>4.0012</td>
+<td>87</td>
+<td>61</td>
+</tr>
+<tr>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+<td>&#x2026;</td>
+</tr>
+<tr>
+<td>&#x5E73;&#x5747;&#xFF1A;</td>
+<td>55160.00</td>
+<td>5.06</td>
+<td>74.8</td>
+<td>64</td>
+</tr>
+</tbody>
+</table>
+<p><strong>&#x521B;&#x5EFA;&#x7D22;&#x5F15;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#x622A;&#x56FE;&#xFF1A;</strong><br><img src="/2016/03/03/elasticsearch2-load/index2-4.jpg" alt=""></p>
+<h2 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;-1"><a href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;-1" class="headerlink" title="&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;"></a>&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;</h2><ol>
+<li>&#x5728;&#x76F8;&#x540C;&#x7684;&#x6570;&#x636E;&#x91CF;[&#x591A;Index&#x5355;type]&#x4E0E;[&#x5355;Index&#x591A;type]&#x5BF9;&#x6BD4;&#x540E;&#x53D1;&#x73B0;&#xFF0C;[&#x591A;Index&#x5355;type]&#x7D22;&#x5F15;&#x7684;&#x901F;&#x5EA6;&#x76F8;&#x5BF9;&#x8F83;&#x5FEB;&#x4E14;&#x78C1;&#x76D8;IO&#x5229;&#x7528;&#x7387;&#x8F83;&#x9AD8;&#xFF1B;</li>
+</ol>
+<h1 id="Search&#x6D4B;&#x8BD5;&#x4E00;"><a href="#Search&#x6D4B;&#x8BD5;&#x4E00;" class="headerlink" title="Search&#x6D4B;&#x8BD5;&#x4E00;"></a>Search&#x6D4B;&#x8BD5;&#x4E00;</h1><h2 id="&#x6D4B;&#x8BD5;&#x76EE;&#x7684;-2"><a href="#&#x6D4B;&#x8BD5;&#x76EE;&#x7684;-2" class="headerlink" title="&#x6D4B;&#x8BD5;&#x76EE;&#x7684;"></a>&#x6D4B;&#x8BD5;&#x76EE;&#x7684;</h2><ol>
+<li>&#x7D22;&#x5F15;&#x67E5;&#x8BE2;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x7CFB;&#x7EDF;&#x7684;&#x74F6;&#x9888;&#x5728;&#x54EA;&#x91CC;&#xFF1F;</li>
+<li>&#x589E;&#x52A0;&#x8282;&#x70B9;&#xFF0C;&#x67E5;&#x8BE2;&#x901F;&#x5EA6;&#x662F;&#x5426;&#x7B26;&#x5408;&#x7EBF;&#x6027;&#x589E;&#x957F;&#xFF1F;</li>
+</ol>
+<h2 id="&#x67E5;&#x8BE2;&#x6761;&#x4EF6;"><a href="#&#x67E5;&#x8BE2;&#x6761;&#x4EF6;" class="headerlink" title="&#x67E5;&#x8BE2;&#x6761;&#x4EF6;"></a>&#x67E5;&#x8BE2;&#x6761;&#x4EF6;</h2><p><strong>&#x6570;&#x636E;&#x91CF;&#x603B;&#x5927;&#x5C0F;&#x7EA6;&#xFF1A;1&#x4EBF;&#x6761;</strong></p>
+<pre><code>{
+  &quot;from&quot;: 0,
+  &quot;size&quot;: 20,
+  &quot;query&quot;: {
+    &quot;filtered&quot;: {
+      &quot;query&quot;: {
+        &quot;bool&quot;: {
+          &quot;must&quot;: [
+            {
+              &quot;match&quot;: {
+                &quot;dns&quot;: &quot;${dns}&quot;
+              }
+            }
+          ]
+        }
+      },
+      &quot;filter&quot;: {
+        &quot;bool&quot;: {
+          &quot;must&quot;: [
+            {
+              &quot;term&quot;: {
+                &quot;ttl&quot;: &quot;${ttl}&quot;
+              }
+            },
+            {
+              &quot;range&quot;:{
+                &quot;source_ip&quot;:{
+                  &quot;gte&quot;:&quot;${source_ip}&quot;,
+                  &quot;lte&quot;:&quot;10.115.65.255&quot;
+                }
+              }
+            }
+          ]          
+        }
+      }
+    }
+  }
+}
+</code></pre><h2 id="5-shards-0-replicats-1-nodes-1"><a href="#5-shards-0-replicats-1-nodes-1" class="headerlink" title="5 shards 0 replicats 1 nodes"></a>5 shards 0 replicats 1 nodes</h2><p>&#x5E76;&#x53D1;100&#x4E2A;&#x67E5;&#x8BE2;<br>&#x5E73;&#x5747;&#x5B8C;&#x6210;&#x4E00;&#x4E2A;&#x67E5;&#x8BE2;&#x8017;&#x7528;&#x65F6;&#x95F4;&#xFF1A;<strong>2.93 </strong>&#x79D2;<br>&#x6BCF;&#x79D2;&#x5B8C;&#x6210;&#x7684;&#x67E5;&#x8BE2;&#x6B21;&#x6570;&#x4E3A;&#xFF1A;    <strong>34.1 </strong>&#x6B21;<br><img src="/2016/03/03/elasticsearch2-load/search1-1.jpg" alt=""><br><strong>&#x67E5;&#x8BE2;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#x5360;&#x7528;&#x622A;&#x56FE;&#xFF1A;</strong><br><img src="/2016/03/03/elasticsearch2-load/search1-2.jpg" alt=""></p>
+<h2 id="5-shards-0-replicats-2-nodes-1"><a href="#5-shards-0-replicats-2-nodes-1" class="headerlink" title="5 shards 0 replicats 2 nodes"></a>5 shards 0 replicats 2 nodes</h2><p>&#x5E76;&#x53D1;100&#x4E2A;&#x67E5;&#x8BE2;<br>&#x5E73;&#x5747;&#x5B8C;&#x6210;&#x4E00;&#x4E2A;&#x67E5;&#x8BE2;&#x8017;&#x7528;&#x65F6;&#x95F4;&#xFF1A;<strong>2.49</strong> &#x79D2;<br>&#x6BCF;&#x79D2;&#x5B8C;&#x6210;&#x7684;&#x67E5;&#x8BE2;&#x6B21;&#x6570;&#x4E3A;&#xFF1A;    <strong>40.0</strong> &#x6B21;<br>&#x3010;&#x6CE8;&#xFF1A;&#x8FD9;&#x91CC;&#x4EC5;&#x4EC5;&#x9009;&#x62E9;&#x4E00;&#x53F0;&#x8282;&#x70B9;&#x7684;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x663E;&#x793A;&#xFF0C;&#x8282;&#x70B9;&#x662F;&#x914D;&#x7F6E;&#x76F8;&#x540C;&#xFF0C;&#x6570;&#x636E;&#x5206;&#x5E03;&#x65F6;&#x4E5F;&#x662F;&#x5747;&#x5300;&#x7684;&#x3011;<br><img src="/2016/03/03/elasticsearch2-load/search1-3.jpg" alt=""></p>
+<p><strong>&#x67E5;&#x8BE2;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#x5360;&#x7528;&#x622A;&#x56FE;&#xFF1A;</strong><br><img src="/2016/03/03/elasticsearch2-load/search1-4.jpg" alt=""></p>
+<h2 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;-2"><a href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;-2" class="headerlink" title="&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;"></a>&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;</h2><ol>
+<li>&#x5728;&#x5E76;&#x53D1;&#x67E5;&#x8BE2;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x7CFB;&#x7EDF;&#x7684;&#x74F6;&#x9888;&#x540C;&#x6837;&#x5728;CPU</li>
+<li>&#x67E5;&#x8BE2;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x589E;&#x52A0;&#x8282;&#x70B9;&#xFF0C;&#x67E5;&#x8BE2;&#x7684;&#x6027;&#x80FD;&#x5E76;&#x6CA1;&#x6709;&#x7EBF;&#x6027;&#x589E;&#x957F;&#xFF0C;&#x4EC5;&#x4EC5;&#x53EA;&#x662F;&#x67E5;&#x8BE2;&#x54CD;&#x5E94;&#x65F6;&#x95F4;&#x6709;&#x6240;&#x597D;&#x8F6C;&#xFF0C;&#x67E5;&#x8BE2;&#x7684;&#x541E;&#x5410;&#x91CF;&#x589E;&#x5927;</li>
+</ol>
+<h1 id="Search&#x6D4B;&#x8BD5;&#x4E8C;"><a href="#Search&#x6D4B;&#x8BD5;&#x4E8C;" class="headerlink" title="Search&#x6D4B;&#x8BD5;&#x4E8C;"></a>Search&#x6D4B;&#x8BD5;&#x4E8C;</h1><h2 id="&#x6D4B;&#x8BD5;&#x76EE;&#x7684;-3"><a href="#&#x6D4B;&#x8BD5;&#x76EE;&#x7684;-3" class="headerlink" title="&#x6D4B;&#x8BD5;&#x76EE;&#x7684;"></a>&#x6D4B;&#x8BD5;&#x76EE;&#x7684;</h2><ol>
+<li>&#x76F8;&#x540C;&#x6570;&#x636E;&#x91CF;&#x4E0B;&#xFF0C;&#x540C;&#x79CD;&#x7C7B;&#x578B;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5206;&#x522B;&#x4E3A;[&#x591A;Index&#x5355;type]&#x4E0E;[&#x5355;Index&#x591A;type]&#x3002;&#x67E5;&#x8BE2;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x5185;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x54EA;&#x4E2A;&#x7684;&#x67E5;&#x8BE2;&#x6548;&#x7387;&#x66F4;&#x9AD8;&#xFF1F;</li>
+</ol>
+<h2 id="&#x67E5;&#x8BE2;&#x6761;&#x4EF6;-1"><a href="#&#x67E5;&#x8BE2;&#x6761;&#x4EF6;-1" class="headerlink" title="&#x67E5;&#x8BE2;&#x6761;&#x4EF6;"></a>&#x67E5;&#x8BE2;&#x6761;&#x4EF6;</h2><p><strong>&#x6570;&#x636E;&#x91CF;&#x603B;&#x5927;&#x5C0F;&#x7EA6;&#xFF1A;5&#x4EBF;&#x6761;</strong></p>
+<pre><code>{
+  &quot;from&quot;: 0,
+  &quot;size&quot;: 20,
+  &quot;query&quot;: {
+    &quot;filtered&quot;: {
+      &quot;query&quot;: {
+        &quot;bool&quot;: {
+          &quot;must&quot;: [
+            {
+              &quot;match&quot;: {
+                &quot;dns&quot;: &quot;${dns}&quot;
+              }
+            }
+          ]
+        }
+      },
+      &quot;filter&quot;: {
+        &quot;bool&quot;: {
+          &quot;must&quot;: [
+            {
+              &quot;term&quot;: {
+                &quot;ttl&quot;: &quot;${ttl}&quot;
+              }
+            },
+            {
+              &quot;range&quot;:{
+                &quot;source_ip&quot;:{
+                  &quot;gte&quot;:&quot;${source_ip}&quot;,
+                  &quot;lte&quot;:&quot;10.115.65.255&quot;
+                }
+              }
+            }
+          ]          
+        }
+      }
+    }
+  }
+}
+</code></pre><h2 id="5-shards-1-replicats-2-nodes-index-day-1"><a href="#5-shards-1-replicats-2-nodes-index-day-1" class="headerlink" title="5 shards 1 replicats 2 nodes (index/day)"></a>5 shards 1 replicats 2 nodes (index/day)</h2><p><strong>&#x5171;&#xFF1A;509160000&#x6761;</strong><br><img src="/2016/03/03/elasticsearch2-load/search2-1.jpg" alt=""></p>
+<p>&#x5E76;&#x53D1;20&#x4E2A;&#x67E5;&#x8BE2;&#x7EBF;&#x7A0B;</p>
+<p>&#x5E73;&#x5747;&#x5B8C;&#x6210;&#x4E00;&#x4E2A;&#x67E5;&#x8BE2;&#x8017;&#x7528;&#x65F6;&#x95F4;&#xFF1A;<strong>1.68</strong> &#x79D2;</p>
+<p>&#x6BCF;&#x79D2;&#x5B8C;&#x6210;&#x7684;&#x67E5;&#x8BE2;&#x6B21;&#x6570;&#x4E3A;&#xFF1A;   <strong>11.80</strong>&#x6B21;<br><img src="/2016/03/03/elasticsearch2-load/search2-2.jpg" alt=""><br><strong>&#x67E5;&#x8BE2;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#x5360;&#x7528;&#x622A;&#x56FE;&#xFF1A;</strong><br><img src="/2016/03/03/elasticsearch2-load/search2-3.jpg" alt=""></p>
+<h2 id="5-shards-1-replicats-2-nodes-one-index-1"><a href="#5-shards-1-replicats-2-nodes-one-index-1" class="headerlink" title="5 shards 1 replicats 2 nodes (one index)"></a>5 shards 1 replicats 2 nodes (one index)</h2><p><img src="/2016/03/03/elasticsearch2-load/search2-4.jpg" alt=""></p>
+<p>&#x5E76;&#x53D1;20&#x4E2A;&#x67E5;&#x8BE2;&#x7EBF;&#x7A0B;</p>
+<p>&#x5E73;&#x5747;&#x5B8C;&#x6210;&#x4E00;&#x4E2A;&#x67E5;&#x8BE2;&#x8017;&#x7528;&#x65F6;&#x95F4;&#xFF1A;<strong>2.38 </strong>&#x79D2;</p>
+<p>&#x6BCF;&#x79D2;&#x5B8C;&#x6210;&#x7684;&#x67E5;&#x8BE2;&#x6B21;&#x6570;&#x4E3A;&#xFF1A;   <strong> 8.40 </strong>&#x6B21;<br><img src="/2016/03/03/elasticsearch2-load/search2-5.jpg" alt=""><br><strong>&#x67E5;&#x8BE2;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#x5360;&#x7528;&#x622A;&#x56FE;&#xFF1A;</strong><br><img src="/2016/03/03/elasticsearch2-load/search2-6.jpg" alt=""></p>
+<h2 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;-3"><a href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;-3" class="headerlink" title="&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;"></a>&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;</h2><ol>
+<li>&#x6D4B;&#x8BD5;&#x5BF9;&#x6BD4;&#x5F97;&#x51FA;&#xFF0C;&#x5728;&#x76F8;&#x540C;&#x6570;&#x636E;&#x91CF;&#x4E0B;[&#x591A;Index&#x5355;type]&#x4E0E;[&#x5355;Index&#x591A;type]&#xFF0C;[&#x591A;Index&#x5355;type] &#x67E5;&#x8BE2;&#x7684;&#x6548;&#x7387;&#x66F4;&#x9AD8;</li>
+</ol>
+<h1 id="Search&#x6D4B;&#x8BD5;&#x4E09;"><a href="#Search&#x6D4B;&#x8BD5;&#x4E09;" class="headerlink" title="Search&#x6D4B;&#x8BD5;&#x4E09;"></a>Search&#x6D4B;&#x8BD5;&#x4E09;</h1><h2 id="&#x6D4B;&#x8BD5;&#x76EE;&#x7684;-4"><a href="#&#x6D4B;&#x8BD5;&#x76EE;&#x7684;-4" class="headerlink" title="&#x6D4B;&#x8BD5;&#x76EE;&#x7684;"></a>&#x6D4B;&#x8BD5;&#x76EE;&#x7684;</h2><ol>
+<li>&#x4E3B;&#x8981;&#x6D4B;&#x8BD5;ElasticSearch-2.1.1&#x5728;&#x5927;&#x91CF;&#x7684;&#x805A;&#x5408;&#x67E5;&#x8BE2;&#x4E0B;&#xFF0C;&#x662F;&#x5426;&#x4F1A;&#x53D1;&#x751F;&#x5185;&#x5B58;&#x5806;&#x6808;&#x6EA2;&#x51FA;&#xFF1F;</li>
+</ol>
+<h2 id="&#x67E5;&#x8BE2;&#x6761;&#x4EF6;-2"><a href="#&#x67E5;&#x8BE2;&#x6761;&#x4EF6;-2" class="headerlink" title="&#x67E5;&#x8BE2;&#x6761;&#x4EF6;"></a>&#x67E5;&#x8BE2;&#x6761;&#x4EF6;</h2><p><strong>&#x6570;&#x636E;&#x91CF;&#x5927;&#x5C0F;&#x7EA6;&#xFF1A;1 &#x4EBF;</strong></p>
+<pre><code>/bap2/dns/_search
+{
+  &quot;query&quot;: {
+    &quot;filtered&quot;: {
+      &quot;query&quot;: {
+        &quot;match_all&quot;: {}
+      },
+      &quot;filter&quot;: {
+        &quot;range&quot;: {
+            &quot;source_ip&quot;:{
+              &quot;gte&quot;:&quot;${source_ip}&quot;,
+              &quot;lte&quot;:&quot;10.115.65.255&quot;
+            }
+        }
+      }
+    }
+  },  
+  &quot;aggs&quot;: {
+    &quot;dns_aggs&quot;: {
+      &quot;terms&quot;: {
+        &quot;field&quot;: &quot;dns&quot;,
+        &quot;size&quot;: 10,
+        &quot;order&quot;: {
+          &quot;_term&quot;: &quot;asc&quot;
+        }        
+     }
+    }
+  }
+}    
+</code></pre><h2 id="5-shards-0-replicats-2-nodes-2"><a href="#5-shards-0-replicats-2-nodes-2" class="headerlink" title="5 shards 0 replicats 2 nodes"></a>5 shards 0 replicats 2 nodes</h2><p>&#x5E76;&#x53D1;20&#x4E2A;&#x67E5;&#x8BE2;&#x7EBF;&#x7A0B;<br>&#x5E73;&#x5747;&#x5B8C;&#x6210;&#x4E00;&#x4E2A;&#x67E5;&#x8BE2;&#x8017;&#x7528;&#x65F6;&#x95F4;&#xFF1A;<strong>3.99</strong>&#x79D2;<br>&#x6BCF;&#x79D2;&#x5B8C;&#x6210;&#x7684;&#x67E5;&#x8BE2;&#x6B21;&#x6570;&#x4E3A;&#xFF1A;   <strong>5.0</strong>&#x6B21;<br><img src="/2016/03/03/elasticsearch2-load/search3-1.jpg" alt=""><br><strong>&#x67E5;&#x8BE2;JVM&#x8D44;&#x6E90;&#x5360;&#x7528;&#x622A;&#x56FE;&#xFF1A;</strong><br><img src="/2016/03/03/elasticsearch2-load/search3-2.jpg" alt=""></p>
+<h2 id="&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;-4"><a href="#&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;-4" class="headerlink" title="&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;"></a>&#x6D4B;&#x8BD5;&#x7ED3;&#x8BBA;</h2><ol>
+<li>&#x5728;es-2.1.1&#x4E2D;&#xFF0C;&#x5E76;&#x53D1;&#x5927;&#x91CF;&#x7684;&#x805A;&#x5408;&#x67E5;&#x8BE2;&#x5E76;&#x672A;&#x53D1;&#x73B0;JVM&#x5806;&#x6808;&#x6EA2;&#x51FA;&#x7684;&#x60C5;&#x51B5;</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/elasticsearch-2-1-1/" rel="tag">#elasticsearch 2.1.1</a>
+          
+            <a href="/tags/压力测试/" rel="tag">#压力测试</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/12/flume_load/" rel="next" title="Flume压力测试">
+                <i class="fa fa-chevron-left"></i> Flume压力测试
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/03/03/elasticsearch2-load/"
+     data-title="Elasticsearch 2.1.1压力测试"
+     data-content=""
+     data-url="http://yoursite.com/2016/03/03/elasticsearch2-load/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/03/03/elasticsearch2-load/"
+           data-title="Elasticsearch 2.1.1压力测试" data-url="http://yoursite.com/2016/03/03/elasticsearch2-load/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Hale" />
+          <p class="site-author-name" itemprop="name">Hale</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizhitao0923" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#测试环境"><span class="nav-number">1.</span> <span class="nav-text">测试环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件配置"><span class="nav-number">1.1.</span> <span class="nav-text">硬件配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件"><span class="nav-number">1.2.</span> <span class="nav-text">软件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Index测试一"><span class="nav-number">2.</span> <span class="nav-text">Index测试一</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#测试目的"><span class="nav-number">2.1.</span> <span class="nav-text">测试目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-shards-0-replicats-1-nodes"><span class="nav-number">2.2.</span> <span class="nav-text">5 shards 0 replicats 1 nodes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-shards-0-replicats-2-nodes"><span class="nav-number">2.3.</span> <span class="nav-text">5 shards 0 replicats 2 nodes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试结论"><span class="nav-number">2.4.</span> <span class="nav-text">测试结论</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Index测试二"><span class="nav-number">3.</span> <span class="nav-text">Index测试二</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#测试目的-1"><span class="nav-number">3.1.</span> <span class="nav-text">测试目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-shards-1-replicats-2-nodes-index-day"><span class="nav-number">3.2.</span> <span class="nav-text">5 shards 1 replicats 2 nodes (index/day)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-shards-1-replicats-2-nodes-one-index"><span class="nav-number">3.3.</span> <span class="nav-text">5 shards 1 replicats 2 nodes (one index)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试结论-1"><span class="nav-number">3.4.</span> <span class="nav-text">测试结论</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Search测试一"><span class="nav-number">4.</span> <span class="nav-text">Search测试一</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#测试目的-2"><span class="nav-number">4.1.</span> <span class="nav-text">测试目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询条件"><span class="nav-number">4.2.</span> <span class="nav-text">查询条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-shards-0-replicats-1-nodes-1"><span class="nav-number">4.3.</span> <span class="nav-text">5 shards 0 replicats 1 nodes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-shards-0-replicats-2-nodes-1"><span class="nav-number">4.4.</span> <span class="nav-text">5 shards 0 replicats 2 nodes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试结论-2"><span class="nav-number">4.5.</span> <span class="nav-text">测试结论</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Search测试二"><span class="nav-number">5.</span> <span class="nav-text">Search测试二</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#测试目的-3"><span class="nav-number">5.1.</span> <span class="nav-text">测试目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询条件-1"><span class="nav-number">5.2.</span> <span class="nav-text">查询条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-shards-1-replicats-2-nodes-index-day-1"><span class="nav-number">5.3.</span> <span class="nav-text">5 shards 1 replicats 2 nodes (index/day)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-shards-1-replicats-2-nodes-one-index-1"><span class="nav-number">5.4.</span> <span class="nav-text">5 shards 1 replicats 2 nodes (one index)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试结论-3"><span class="nav-number">5.5.</span> <span class="nav-text">测试结论</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Search测试三"><span class="nav-number">6.</span> <span class="nav-text">Search测试三</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#测试目的-4"><span class="nav-number">6.1.</span> <span class="nav-text">测试目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询条件-2"><span class="nav-number">6.2.</span> <span class="nav-text">查询条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-shards-0-replicats-2-nodes-2"><span class="nav-number">6.3.</span> <span class="nav-text">5 shards 0 replicats 2 nodes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试结论-4"><span class="nav-number">6.4.</span> <span class="nav-text">测试结论</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hale</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lizhitao0923"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
